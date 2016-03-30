@@ -60,13 +60,15 @@ public final class RemoveAnno
         PDDocument doc = null;
         try
         {
-            if( args.length != 2 )
+            if( args.length != 1 )
             {
                 usage();
             }
             else
             {
                 doc = PDDocument.load( new File(args[0]) );
+                String newFile = args[0] + ".noanno.pdf";
+                
                 // int pageNum = 0;
                 for( PDPage page : doc.getPages() )
                 {
@@ -93,7 +95,7 @@ public final class RemoveAnno
                         }
                     }
                 }
-                doc.save( args[1] );
+                doc.save( newFile );
             }
         }
         finally
