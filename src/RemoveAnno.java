@@ -68,7 +68,7 @@ public final class RemoveAnno
             {
                 doc = PDDocument.load( new File(args[0]) );
                 String newFile = args[0] + ".noanno.pdf";
-                
+
                 // int pageNum = 0;
                 for( PDPage page : doc.getPages() )
                 {
