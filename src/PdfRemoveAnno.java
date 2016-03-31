@@ -1,3 +1,4 @@
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -20,6 +21,8 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.filechooser.FileFilter;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -57,6 +60,14 @@ public final class PdfRemoveAnno {
 	public static void main(String[] args) throws IOException {
 		PDDocument doc = null;
 		try {
+
+			JFrame frame = new JFrame("PDF Remove Annotation");
+			JLabel label = new JLabel("PDF Remove Annotation");
+			frame.getContentPane().add(label);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.pack();
+			frame.setVisible(true);
+
 			JFileChooser filechooser = new JFileChooser();
 			filechooser.setDialogTitle("Select PDF to Remove Annotations");
 			FileFilter filter = new FileFilter() {
@@ -75,7 +86,7 @@ public final class PdfRemoveAnno {
 			};
 			filechooser.setFileFilter(filter);
 
-			int selected = filechooser.showOpenDialog(null);
+			int selected = filechooser.showOpenDialog(frame);
 			if (selected != JFileChooser.APPROVE_OPTION) {
 				usage();
 				return;
@@ -83,6 +94,7 @@ public final class PdfRemoveAnno {
 			File file = filechooser.getSelectedFile();
 
 			doc = PDDocument.load(file);
+			label.setText(file.getPath());
 			String newFile = file.getPath() + ".noanno.pdf";
 
 			// int pageNum = 0;
@@ -110,11 +122,14 @@ public final class PdfRemoveAnno {
 				}
 			}
 			doc.save(newFile);
+			label.setText("done!");
 
 		} finally {
 			if (doc != null) {
 				doc.close();
 			}
+
+			System.exit(0);
 		}
 	}
 
