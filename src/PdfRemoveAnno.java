@@ -24,6 +24,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileSystemView;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -68,7 +69,11 @@ public final class PdfRemoveAnno {
 			frame.pack();
 			frame.setVisible(true);
 
-			JFileChooser filechooser = new JFileChooser();
+			FileSystemView filesys = FileSystemView.getFileSystemView();
+//			File[] roots = filesys.getRoots();
+			File df = filesys.getHomeDirectory();
+
+			JFileChooser filechooser = new JFileChooser(df.getPath());
 			filechooser.setDialogTitle("Select PDF to Remove Annotations");
 			FileFilter filter = new FileFilter() {
 
